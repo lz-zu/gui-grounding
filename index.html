@@ -6,8 +6,7 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>GUI Grounding for Computer-Use Agents: A Survey</title>
 <meta content="A survey of GUI grounding methods, learning paradigms, inference strategies, target representations, datasets, and evaluation." name="description"/>
-<link href="assets/favicon.svg" rel="icon" type="image/svg+xml"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="assets/robot-mark.png" rel="icon" type="image/png"/>
 <style>@font-face {
   font-family: 'Inter';
   font-style: normal;
@@ -64,27 +63,6 @@
   font-display: swap;
   src: url(assets/fonts/jetbrains-mono-500.woff2) format('woff2');
 }
-@font-face {
-  font-family: 'Sora';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url(assets/fonts/sora-600.woff2) format('woff2');
-}
-@font-face {
-  font-family: 'Sora';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url(assets/fonts/sora-700.woff2) format('woff2');
-}
-@font-face {
-  font-family: 'Sora';
-  font-style: normal;
-  font-weight: 800;
-  font-display: swap;
-  src: url(assets/fonts/sora-800.woff2) format('woff2');
-}
 
   :root{
     --bg:#f6f8fc;
@@ -118,7 +96,7 @@
   a:focus-visible,button:focus-visible{outline:3px solid rgba(47,95,224,.28);outline-offset:3px}
   img{max-width:100%;display:block}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
-  h1,h2,h3,.sec-title,.title{font-family:"Sora","Inter",sans-serif}
+  h1,h2,h3,.sec-title,.title{font-family:"Inter",sans-serif}
   .skip-link{position:fixed;left:16px;top:12px;z-index:999;transform:translateY(-150%);background:var(--ink);color:#fff;padding:9px 14px;border-radius:9px;font-weight:700;transition:transform .15s}
   .skip-link:focus{transform:none;text-decoration:none}
   .cursor-comet{position:fixed;inset:0;z-index:90;width:100%;height:100%;pointer-events:none;opacity:0;transition:opacity .22s ease;mix-blend-mode:multiply}
@@ -131,9 +109,9 @@
     border-bottom:1px solid rgba(226,233,244,.9);
   }
   .nav-in{max-width:var(--maxw);margin:0 auto;padding:11px 24px;display:flex;align-items:center;gap:16px}
-  .nav-brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:15px;letter-spacing:-.01em;white-space:nowrap;font-family:"Sora",sans-serif}
+  .nav-brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:15px;letter-spacing:-.01em;white-space:nowrap;font-family:"Inter",sans-serif}
   .nav-brand,.nav-brand:hover{color:var(--ink);text-decoration:none}
-  .nav-brand .dot{width:28px;height:28px;border-radius:9px;background:#ECF5FE;flex:0 0 auto;box-shadow:0 4px 12px rgba(47,95,224,.22);display:grid;place-items:center;overflow:hidden;padding:2px}
+  .nav-brand .dot{width:38px;height:38px;flex:0 0 auto;display:grid;place-items:center}
   .nav-brand .dot img{width:100%;height:100%;object-fit:contain}
   .nav-links{margin-left:auto;display:flex;gap:2px;flex-wrap:wrap}
   .nav-links a{color:var(--muted);font-weight:600;font-size:13.5px;padding:7px 12px;border-radius:9px;transition:.15s}
@@ -232,7 +210,7 @@
   }
   .sec-kicker .badge{
     width:30px;height:30px;border-radius:9px;background:var(--grad);color:#fff;
-    display:grid;place-items:center;font-size:14px;font-weight:800;box-shadow:0 6px 16px rgba(47,95,224,.30);font-family:"Sora",sans-serif
+    display:grid;place-items:center;font-size:14px;font-weight:800;box-shadow:0 6px 16px rgba(47,95,224,.30);font-family:"Inter",sans-serif
   }
   .sec-title{font-size:clamp(26px,3.6vw,38px);font-weight:800;letter-spacing:-.025em;margin:0 0 12px;line-height:1.12}
   .sec-sub{color:var(--muted);font-size:16.5px}
@@ -265,7 +243,7 @@
     padding:24px;box-shadow:var(--shadow-sm);position:relative;overflow:hidden;transition:.2s;
   }
   .card:hover{transform:translateY(-5px);box-shadow:var(--shadow-md);border-color:#d9def0}
-  .card .no{font-family:"Sora",sans-serif;font-size:30px;font-weight:800;letter-spacing:-.02em;
+  .card .no{font-family:"Inter",sans-serif;font-size:30px;font-weight:800;letter-spacing:-.02em;
     background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
   .card h4{margin:12px 0 8px;font-size:17.5px;font-weight:800;letter-spacing:-.01em}
   .card p{margin:0;font-size:14px;color:var(--muted)}
@@ -302,7 +280,7 @@
   .stage .yr{font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.03em;margin-top:6px}
   .stage h4{margin:6px 0 9px;font-size:19px;font-weight:800;letter-spacing:-.01em}
   .stage p{margin:0;font-size:14px;color:var(--muted)}
-  .stage .rn{font-family:"Sora",sans-serif;font-size:44px;font-weight:800;opacity:.1;position:absolute;top:8px;right:18px;line-height:1}
+  .stage .rn{font-family:"Inter",sans-serif;font-size:44px;font-weight:800;opacity:.1;position:absolute;top:8px;right:18px;line-height:1}
 
   /* pillars */
   .pillars{display:grid;grid-template-columns:1fr 1fr;gap:20px}
@@ -325,7 +303,8 @@
 
   footer{padding:52px 0 64px;text-align:center;border-top:1px solid var(--line);color:var(--muted);font-size:13.5px;background:var(--bg-2)}
   footer .logos{margin-bottom:20px;display:flex;justify-content:center}
-  footer .logos img{max-height:74px;opacity:.95}
+  footer .logos img{max-height:74px}
+  footer .design-credit{font-size:12px;margin-top:22px}
 
   /* scroll reveal */
   .reveal{opacity:0;transform:translateY(26px);transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .6s cubic-bezier(.2,.7,.2,1)}
@@ -383,8 +362,8 @@
 
   /* Survey-specific layout */
   .card h3{margin:12px 0 8px;font-size:17.5px;font-weight:800;letter-spacing:-.01em}
-  h1.title{max-width:1020px;font-size:clamp(38px,5.6vw,68px);line-height:1.12}
-  h1.title .survey-line{display:block;font-size:.62em;line-height:1.3;margin-top:10px}
+  h1.title{max-width:1020px;font-size:clamp(38px,5.6vw,68px);line-height:1.15;font-weight:700;letter-spacing:-.035em}
+  h1.title .survey-line{display:block;font-size:.62em;line-height:1.3;margin-top:14px;font-weight:600;letter-spacing:-.025em}
   header.hero{padding:70px 0 48px}
   .authors{max-width:1000px;line-height:1.95}.author{display:inline-block;white-space:nowrap;margin-right:7px}
   .affil{max-width:1000px;line-height:1.9}.affil span{display:inline-block;margin-inline:5px}
@@ -424,7 +403,7 @@
   @media(max-width:600px){.institution-seals{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 12px;margin-top:26px}.institution-seal img{height:54px;width:110px}.institution-seal span{font-size:9px}}
 </style>
 <link href="https://lz-zu.github.io/gui-grounding/" rel="canonical"/><meta content="GUI Grounding for Computer-Use Agents: A Survey" property="og:title"/><meta content="A survey of GUI grounding methods, learning paradigms, inference strategies, target representations, datasets, and evaluation." property="og:description"/><meta content="website" property="og:type"/><meta content="https://lz-zu.github.io/gui-grounding/" property="og:url"/><meta content="https://lz-zu.github.io/gui-grounding/assets/overview.png" property="og:image"/><meta content="summary_large_image" name="twitter:card"/><meta content="#2f5fe0" name="theme-color"/></head>
-<body><a class="skip-link" href="#main-content">Skip to content</a><canvas aria-hidden="true" class="cursor-comet"></canvas><nav aria-label="Primary navigation"><div class="nav-in"><a aria-label="GUI Grounding — back to top" class="nav-brand" href="#top"><span class="dot"><img alt="" src="assets/favicon.svg"/></span>GUI Grounding</a><button aria-controls="nl" aria-expanded="false" aria-label="Open navigation menu" class="nav-toggle" onclick="toggleMenu(this)" type="button">☰</button><div class="nav-links" id="nl"><a href="#overview">Overview</a><a href="#taxonomy">Taxonomy</a><a href="#learning">Learning</a><a href="#inference">Inference</a><a href="#representations">Representations</a><a href="#evaluation">Evaluation</a><a href="#cite">Cite</a></div></div></nav><header class="hero" id="top"><div class="hero-aurora"></div><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="wrap hero-inner"><h1 class="title"><span class="g">GUI Grounding</span><br/>for Computer-Use Agents<span class="survey-line">A Survey</span></h1><p class="subtitle">Methods · Datasets · Benchmarks · Evaluation</p><p class="authors"><span class="author">Lizheng Zu<sup>1,*</sup></span> <span class="author">Ke Huang<sup>2,*</sup></span> <span class="author">Gang Xu<sup>3,*</sup></span> <span class="author">Jingfan Fan<sup>4</sup></span> <span class="author">Baoyuan Wu<sup>5</sup></span> <span class="author">Shengfeng He<sup>6</sup></span> <span class="author">Hehe Fan<sup>7</sup></span> <span class="author">Xiangyu Xu<sup>8</sup></span> <span class="author">Chun Li<sup>9</sup></span> <span class="author">Yanshan Li<sup>1</sup></span> <span class="author">Shihui Ying<sup>10</sup></span> <span class="author">Junchi Yan<sup>11</sup></span> <span class="author">Bingyi Jing<sup>5</sup></span> <span class="author">Ming Li<sup>5,†</sup></span> <span class="author">Zheng Zhu<sup>12</sup></span></p><p class="affil"><span><sup>1</sup>Shenzhen University</span><span><sup>2</sup>Sun Yat-sen University</span><span><sup>3</sup>Guangming Laboratory</span><span><sup>4</sup>Beijing Institute of Technology</span><span><sup>5</sup>The Chinese University of Hong Kong, Shenzhen</span><span><sup>6</sup>Singapore Management University</span><span><sup>7</sup>Zhejiang University</span><span><sup>8</sup>Xi’an Jiaotong University</span><span><sup>9</sup>Shenzhen MSU-BIT University</span><span><sup>10</sup>Shanghai University</span><span><sup>11</sup>Shanghai Jiao Tong University</span><span><sup>12</sup>GigaAI</span></p><p class="contrib">* Equal contribution  ·  † Corresponding author</p><div class="btns">
+<body><a class="skip-link" href="#main-content">Skip to content</a><canvas aria-hidden="true" class="cursor-comet"></canvas><nav aria-label="Primary navigation"><div class="nav-in"><a aria-label="GUI Grounding — back to top" class="nav-brand" href="#top"><span class="dot"><img alt="" src="assets/robot-mark.png"/></span>GUI Grounding</a><button aria-controls="nl" aria-expanded="false" aria-label="Open navigation menu" class="nav-toggle" onclick="toggleMenu(this)" type="button">☰</button><div class="nav-links" id="nl"><a href="#overview">Overview</a><a href="#taxonomy">Taxonomy</a><a href="#learning">Learning</a><a href="#inference">Inference</a><a href="#representations">Representations</a><a href="#evaluation">Evaluation</a><a href="#cite">Cite</a></div></div></nav><header class="hero" id="top"><div class="hero-aurora"></div><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="wrap hero-inner"><h1 class="title"><span class="g">GUI Grounding</span><br/>for Computer-Use Agents<span class="survey-line">A Survey</span></h1><p class="subtitle">Methods · Datasets · Benchmarks · Evaluation</p><p class="authors"><span class="author">Lizheng Zu<sup>1,*</sup></span> <span class="author">Ke Huang<sup>2,*</sup></span> <span class="author">Gang Xu<sup>3,*</sup></span> <span class="author">Jingfan Fan<sup>4</sup></span> <span class="author">Baoyuan Wu<sup>5</sup></span> <span class="author">Shengfeng He<sup>6</sup></span> <span class="author">Hehe Fan<sup>7</sup></span> <span class="author">Xiangyu Xu<sup>8</sup></span> <span class="author">Chun Li<sup>9</sup></span> <span class="author">Yanshan Li<sup>1</sup></span> <span class="author">Shihui Ying<sup>10</sup></span> <span class="author">Junchi Yan<sup>11</sup></span> <span class="author">Bingyi Jing<sup>5</sup></span> <span class="author">Ming Li<sup>5,†</sup></span> <span class="author">Zheng Zhu<sup>12</sup></span></p><p class="affil"><span><sup>1</sup>Shenzhen University</span><span><sup>2</sup>Sun Yat-sen University</span><span><sup>3</sup>Guangming Laboratory</span><span><sup>4</sup>Beijing Institute of Technology</span><span><sup>5</sup>The Chinese University of Hong Kong, Shenzhen</span><span><sup>6</sup>Singapore Management University</span><span><sup>7</sup>Zhejiang University</span><span><sup>8</sup>Xi’an Jiaotong University</span><span><sup>9</sup>Shenzhen MSU-BIT University</span><span><sup>10</sup>Shanghai University</span><span><sup>11</sup>Shanghai Jiao Tong University</span><span><sup>12</sup>GigaAI</span></p><p class="contrib">* Equal contribution  ·  † Corresponding author</p><div class="btns">
 <a class="btn primary" href="paper.html"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"></path><path d="M15 2v5h5"></path></svg> Read the Paper </a>
 <a class="btn" href="https://github.com/OmniAI-Lab-CUHKSZ/Awesome-GUI-Grounding" rel="noopener" target="_blank"><svg aria-hidden="true" fill="currentColor" viewbox="0 0 24 24"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.94c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.36-3.88-1.36-.53-1.34-1.3-1.7-1.3-1.7-1.06-.72.08-.71.08-.71 1.17.08 1.79 1.2 1.79 1.2 1.04 1.79 2.73 1.27 3.4.97.1-.76.41-1.27.74-1.56-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.7 5.4-5.26 5.69.42.36.79 1.08.79 2.18v3.23c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"></path></svg> GitHub / Reading List </a>
 <a class="btn" href="#cite">
@@ -440,7 +419,7 @@
   author = {Lizheng Zu and Ke Huang and Gang Xu and Jingfan Fan and Baoyuan Wu and Shengfeng He and Hehe Fan and Xiangyu Xu and Chun Li and Yanshan Li and Shihui Ying and Junchi Yan and Bingyi Jing and Ming Li and Zheng Zhu},
   title = {GUI Grounding for Computer-Use Agents: A Survey},
   journal = {Preprints}
-}</pre></div><p class="citation-note"><a href="https://doi.org/10.20944/preprints202611.0431.v1">DOI: 10.20944/preprints202611.0431.v1 ↗</a>  ·  <a download="" href="citation.bib">Download BibTeX</a></p></div></section></main><footer><div class="wrap"><div class="logos"><img alt="GUI Grounding Survey" height="48" src="assets/favicon.svg" width="48"/></div><p>Correspondence: <a href="mailto:minglisai@cuhk.edu.cn">minglisai@cuhk.edu.cn</a></p><p>Reading list: <a href="https://github.com/OmniAI-Lab-CUHKSZ/Awesome-GUI-Grounding">Awesome GUI Grounding</a></p><p>November 2026</p></div></footer><dialog aria-labelledby="figure-label" class="lightbox"><div class="lightbox-bar"><span id="figure-label"></span><button aria-label="Close figure" class="lightbox-close" type="button">×</button></div><img alt=""/></dialog><script>
+}</pre></div><p class="citation-note"><a href="https://doi.org/10.20944/preprints202611.0431.v1">DOI: 10.20944/preprints202611.0431.v1 ↗</a>  ·  <a download="" href="citation.bib">Download BibTeX</a></p></div></section></main><footer><div class="wrap"><div class="logos"><img alt="GUI Grounding Survey" height="72" src="assets/robot-mark.png" width="72"/></div><p>Correspondence: <a href="mailto:minglisai@cuhk.edu.cn">minglisai@cuhk.edu.cn</a></p><p>Reading list: <a href="https://github.com/OmniAI-Lab-CUHKSZ/Awesome-GUI-Grounding">Awesome GUI Grounding</a></p><p>November 2026</p><p class="design-credit">Page design inspired by <a href="https://long-horizon-agents.github.io/">Long-Horizon Agents</a>.</p></div></footer><dialog aria-labelledby="figure-label" class="lightbox"><div class="lightbox-bar"><span id="figure-label"></span><button aria-label="Close figure" class="lightbox-close" type="button">×</button></div><img alt=""/></dialog><script>
   (function(){
     if(!window.matchMedia('(hover:hover) and (pointer:fine)').matches || window.matchMedia('(prefers-reduced-motion:reduce)').matches)return;
     var canvas=document.querySelector('.cursor-comet');
