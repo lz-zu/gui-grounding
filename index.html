@@ -1,4 +1,353 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GUI Grounding for Computer-Use Agents: A Survey</title><meta name="description" content="A survey of GUI grounding: learning paradigms, inference strategies, target representations, datasets, and evaluation."><link rel="canonical" href="https://lz-zu.github.io/gui-grounding/"><meta property="og:title" content="GUI Grounding for Computer-Use Agents: A Survey"><meta property="og:description" content="A survey of GUI grounding: learning paradigms, inference strategies, target representations, datasets, and evaluation."><meta property="og:type" content="website"><meta property="og:url" content="https://lz-zu.github.io/gui-grounding/"><meta property="og:image" content="https://lz-zu.github.io/gui-grounding/assets/overview.png"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#127b79"><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="styles.css"><script src="site.js" defer></script></head><body><a class="skip" href="#overview">Skip to content</a><header class="site-header"><div class="nav-wrap"><a class="brand" href="#top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/><path d="m9 8 9 5-5 1-2 5Z"/></svg>GUI Grounding</a><button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="navigation">☰</button><nav class="nav-links" id="navigation" aria-label="Main navigation"><a href="#overview">Overview</a><a href="#taxonomy">Taxonomy</a><a href="#learning">Learning</a><a href="#inference">Inference</a><a href="#representations">Representations</a><a href="#evaluation">Evaluation</a><a href="#citation" class="cite-link">Cite</a></nav></div></header><main id="top"><section class="hero"><div class="wrap"><div class="eyebrow">Survey · November 2026</div><h1><span class="title-accent">GUI Grounding</span><br>for Computer-Use Agents<span class="survey-line">A Survey</span></h1><p class="subtitle">From operation intents to actionable interface targets.</p><div class="authors"><span class="author">Lizheng Zu<sup>1,*</sup></span> <span class="author">Ke Huang<sup>2,*</sup></span> <span class="author">Gang Xu<sup>3,*</sup></span> <span class="author">Jingfan Fan<sup>4</sup></span> <span class="author">Baoyuan Wu<sup>5</sup></span> <span class="author">Shengfeng He<sup>6</sup></span> <span class="author">Hehe Fan<sup>7</sup></span> <span class="author">Xiangyu Xu<sup>8</sup></span> <span class="author">Chun Li<sup>9</sup></span> <span class="author">Yanshan Li<sup>1</sup></span> <span class="author">Shihui Ying<sup>10</sup></span> <span class="author">Junchi Yan<sup>11</sup></span> <span class="author">Bingyi Jing<sup>5</sup></span> <span class="author">Ming Li<sup>5,†</sup></span> <span class="author">Zheng Zhu<sup>12</sup></span></div><div class="affiliations"><span><sup>1</sup>Shenzhen University</span><span><sup>2</sup>Sun Yat-sen University</span><span><sup>3</sup>Guangming Laboratory</span><span><sup>4</sup>Beijing Institute of Technology</span><span><sup>5</sup>The Chinese University of Hong Kong, Shenzhen</span><span><sup>6</sup>Singapore Management University</span><span><sup>7</sup>Zhejiang University</span><span><sup>8</sup>Xi’an Jiaotong University</span><span><sup>9</sup>Shenzhen MSU-BIT University</span><span><sup>10</sup>Shanghai University</span><span><sup>11</sup>Shanghai Jiao Tong University</span><span><sup>12</sup>GigaAI</span></div><p class="author-notes">* Equal contribution &nbsp; † Corresponding author</p><div class="actions"><a class="button primary" href="paper.html">↗ &nbsp; Read the Paper</a><a class="button" href="https://github.com/OmniAI-Lab-CUHKSZ/Awesome-GUI-Grounding">GitHub · Paper Collection</a><a class="button secondary" href="#citation">{ } &nbsp; BibTeX</a></div><div class="hero-figure"><button class="figure-button" type="button" data-label="What is GUI grounding?" aria-label="Enlarge: What is GUI grounding?"><img src="assets/overview.png" alt="An instruction and a GUI screenshot enter a grounding model, which identifies the close button and predicts its location." width="2400" height="977" fetchpriority="high"></button></div></div></section><section class="section " id="overview"><div class="wrap"><div class="section-kicker"><span>01</span>Overview</div><h2>Connecting intent with interaction</h2><div class="abstract"><p>Computer-use agents interpret user goals and act through graphical interfaces. <strong>GUI grounding</strong> connects high-level reasoning to low-level execution: it maps an operation intent to a specific interaction target and the spatial parameters needed to act.</p><p>This survey brings together the methods, training resources, and evaluation protocols behind that capability. We organize methods along three complementary dimensions—<strong>learning paradigms, inference strategies, and target representations</strong>—and examine how their strengths vary with target types, instruction complexity, and interaction requirements.</p></div><p class="overview-note">The field has developed from visual grounding and interface modeling toward screenshot-based localization, visual search, and iterative refinement. The roadmap below situates these developments.</p><div class="figure"><button class="figure-button" type="button" data-label="Development of GUI grounding" aria-label="Enlarge: Development of GUI grounding"><img src="assets/history-roadmap.png" alt="A roadmap from visual grounding foundations and interface modeling to screenshot grounding and grounding refinement." width="2401" height="1249" loading="lazy"></button></div></div></section><section class="section wash" id="taxonomy"><div class="wrap"><div class="section-kicker"><span>02</span>Method taxonomy</div><h2>Three dimensions, one grounding problem</h2><p class="lead">How is the capability acquired? How is evidence used at inference time? How is the target expressed? These dimensions describe complementary aspects of a method, rather than mutually exclusive families.</p><div class="figure"><button class="figure-button" type="button" data-label="The three-dimensional method taxonomy" aria-label="Enlarge: The three-dimensional method taxonomy"><img src="assets/method-framework.png" alt="The survey framework groups GUI grounding by learning paradigms, inference strategies, and target representations." width="2400" height="557" loading="lazy"></button></div><div class="taxonomy-controls" role="tablist" aria-label="Explore the taxonomy"><button class="taxonomy-tab" type="button" role="tab" id="tab-learn" aria-controls="panel-learn" aria-selected="true" tabindex="0">Learning paradigms</button><button class="taxonomy-tab" type="button" role="tab" id="tab-infer" aria-controls="panel-infer" aria-selected="false" tabindex="-1">Inference strategies</button><button class="taxonomy-tab" type="button" role="tab" id="tab-target" aria-controls="panel-target" aria-selected="false" tabindex="-1">Target representations</button></div><div class="taxonomy-panel" id="panel-learn" role="tabpanel" aria-labelledby="tab-learn" tabindex="0"><p>Learning paradigms describe where grounding ability comes from: broad multimodal pretraining, GUI-specific adaptation, or training-free use of existing models.</p><div class="category-links"><a href="#learning">Pretraining ↗</a><a href="#learning">Fine-tuning ↗</a><a href="#learning">Training-free ↗</a></div></div><div class="taxonomy-panel" id="panel-infer" role="tabpanel" aria-labelledby="tab-infer" tabindex="0" hidden><p>Inference strategies describe how a model organizes evidence and search, from a single prediction to guided reasoning, competing candidates, and repeated refinement.</p><div class="category-links"><a href="#inference">Direct ↗</a><a href="#inference">Guided ↗</a><a href="#inference">Multi-hypothesis ↗</a><a href="#inference">Iterative ↗</a></div></div><div class="taxonomy-panel" id="panel-target" role="tabpanel" aria-labelledby="tab-target" tabindex="0" hidden><p>Target representations describe the form of the result: explicit coordinates, spatial responses over the interface, or identifiable interface elements.</p><div class="category-links"><a href="#representations">Coordinates ↗</a><a href="#representations">Spatial responses ↗</a><a href="#representations">Elements ↗</a></div></div></div></section><section class="section " id="learning"><div class="wrap"><div class="section-kicker"><span>03</span>Learning paradigms</div><h2>How grounding capabilities are acquired</h2><p class="lead">Learning choices shape what a model knows about interfaces and how that knowledge is adapted to precise interaction.</p><div class="learning-grid"><article class="learning-column"><div class="micro">Build the foundation</div><h3>Pretraining</h3><p>General multimodal pretraining supplies visual and language knowledge. GUI grounding pretraining aligns interface observations with targets and actions.</p><ul><li>General multimodal knowledge</li><li>GUI-specific alignment</li></ul><a href="https://github.com/OmniAI-Lab-CUHKSZ/Awesome-GUI-Grounding#gui-grounding-pretraining">Explore the papers ↗</a></article><article class="learning-column"><div class="micro">Adapt the capability</div><h3>Fine-tuning</h3><p>Supervised fine-tuning learns from annotated targets. Reinforcement learning and on-policy distillation adapt predictions using feedback or teacher guidance.</p><ul><li>Supervised fine-tuning</li><li>Reinforcement learning</li><li>On-policy distillation</li></ul><a href="https://github.com/OmniAI-Lab-CUHKSZ/Awesome-GUI-Grounding#supervised-fine-tuning">Explore the papers ↗</a></article><article class="learning-column"><div class="micro">Use existing models</div><h3>Training-free</h3><p>Existing model capabilities can be organized through prompting, interface parsing, or external tools without updating the grounding model’s parameters.</p><ul><li>Prompting and orchestration</li><li>Interface and tool support</li></ul><a href="https://github.com/OmniAI-Lab-CUHKSZ/Awesome-GUI-Grounding#training-free">Explore the papers ↗</a></article></div></div></section><section class="section wash" id="inference"><div class="wrap"><div class="section-kicker"><span>04</span>Inference strategies</div><h2>From one prediction to progressive refinement</h2><p class="lead">The same model can ground a target in different ways. Inference strategies determine how it uses hints, considers alternatives, and revisits uncertain regions.</p><div class="figure"><button class="figure-button" type="button" data-label="Four inference strategies" aria-label="Enlarge: Four inference strategies"><img src="assets/inference-strategies.png" alt="Illustrations of direct, guided, multi-hypothesis, and iterative GUI grounding." width="2401" height="1386" loading="lazy"></button></div><div class="strategy-list"><article class="strategy"><span class="number">01</span><h3>Direct</h3><p>Predict the target from the instruction and interface in one grounding step.</p></article><article class="strategy"><span class="number">02</span><h3>Guided</h3><p>Use explicit cues or intermediate reasoning to focus the prediction.</p></article><article class="strategy"><span class="number">03</span><h3>Multi-hypothesis</h3><p>Generate and compare multiple candidate targets or predictions.</p></article><article class="strategy"><span class="number">04</span><h3>Iterative</h3><p>Revisit the interface through successive localization and refinement steps.</p></article></div></div></section><section class="section " id="representations"><div class="wrap"><div class="section-kicker"><span>05</span>Target representations</div><h2>What does the model point to?</h2><p class="lead">An interaction target can be encoded as a position, a spatial response, or an interface element. The representation affects how predictions are interpreted and turned into actions.</p><div class="figure"><button class="figure-button" type="button" data-label="Three target representations" aria-label="Enlarge: Three target representations"><img src="assets/target-representations.png" alt="Coordinate representations, spatial-response representations, and element representations for GUI interaction targets." width="2401" height="1534" loading="lazy"></button></div><div class="representation-list"><article class="representation-row"><span class="symbol" aria-hidden="true">x,y</span><h3>Coordinates</h3><p>Points and regions express where to act directly in the interface coordinate system.</p></article><article class="representation-row"><span class="symbol" aria-hidden="true">▦</span><h3>Spatial responses</h3><p>Spatial scores or response maps preserve evidence about where a target may lie before a final location is selected.</p></article><article class="representation-row"><span class="symbol" aria-hidden="true">&lt;/&gt;</span><h3>Elements</h3><p>Identifiers or structured element descriptions connect a prediction to an interface object.</p></article></div></div></section><section class="section wash" id="evaluation"><div class="wrap"><div class="section-kicker"><span>06</span>Datasets & evaluation</div><h2>Measuring grounding in context</h2><p class="lead">Training data provides interface coverage and instruction–target supervision. Evaluation asks whether that capability transfers across platforms, dense layouts, ambiguous instructions, and richer interaction requirements.</p><div class="figure"><button class="figure-button" type="button" data-label="GUI grounding data and evaluation" aria-label="Enlarge: GUI grounding data and evaluation"><img src="assets/benchmarks.png" alt="An overview of GUI grounding datasets and benchmarks across interface platforms and evaluation tasks." width="2401" height="1574" loading="lazy"></button></div><div class="metrics"><article class="metric"><h3>Target localization</h3><p>Point accuracy tests whether a predicted location falls inside the target region; region-based evaluation can measure overlap.</p></article><article class="metric"><h3>Interface diversity</h3><p>Benchmarks such as ScreenSpot and ScreenSpot-Pro examine different platforms, resolutions, and target sizes.</p></article><article class="metric"><h3>Instruction understanding</h3><p>Spatial and functional references test whether a model resolves the intended target beyond matching visible text.</p></article><article class="metric"><h3>Interaction requirements</h3><p>Absent targets, dragging, and state-dependent interactions extend evaluation beyond a single static click.</p></article></div><div class="resource-strip"><div><h3>Explore the research collection</h3><p>Browse papers, datasets, and benchmarks organized by the survey taxonomy.</p></div><a class="button primary" href="https://github.com/OmniAI-Lab-CUHKSZ/Awesome-GUI-Grounding">Awesome GUI Grounding ↗</a></div></div></section><section class="section " id="citation"><div class="wrap"><div class="section-kicker"><span>07</span>Citation</div><h2>Cite this survey</h2><p class="lead">If this survey supports your research, please cite the paper.</p><div class="citation-box"><div class="citation-top"><span>BibTeX · Preprints, 2026</span><button class="copy-button" type="button" aria-live="polite">Copy BibTeX</button></div><pre id="bibtex">@article{202611.0431,
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GUI Grounding for Computer-Use Agents: A Survey</title>
+<meta content="A survey of GUI grounding methods, learning paradigms, inference strategies, target representations, datasets, and evaluation." name="description"/>
+<link href="assets/favicon.svg" rel="icon" type="image/svg+xml"/>
+
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500&amp;family=Sora:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --bg:#f6f8fc;
+    --bg-2:#eef3fb;
+    --surface:#ffffff;
+    --ink:#111a2e;
+    --muted:#5a6577;
+    --line:#e2e9f4;
+    --brand:#2f5fe0;
+    --brand-2:#2f5fe0;
+    --brand-3:#1e3a8a;
+    --accent:#2f5fe0;
+    --brand-soft:#eaf1fe;
+    --shadow-sm:0 1px 2px rgba(17,26,46,.05), 0 4px 14px rgba(17,26,46,.05);
+    --shadow-md:0 6px 22px rgba(17,26,46,.08);
+    --shadow-lg:0 24px 60px rgba(17,26,46,.14);
+    --grad:linear-gradient(120deg,#2f5fe0 0%,#1e3a8a 100%);
+    --grad-soft:linear-gradient(135deg,#3b6bf0,#2748c8);
+    --radius:20px;
+    --maxw:1160px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:78px}
+  body{
+    margin:0;font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  a:focus-visible,button:focus-visible{outline:3px solid rgba(47,95,224,.28);outline-offset:3px}
+  img{max-width:100%;display:block}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  h1,h2,h3,.sec-title,.title{font-family:"Sora","Inter",sans-serif}
+  .skip-link{position:fixed;left:16px;top:12px;z-index:999;transform:translateY(-150%);background:var(--ink);color:#fff;padding:9px 14px;border-radius:9px;font-weight:700;transition:transform .15s}
+  .skip-link:focus{transform:none;text-decoration:none}
+  .cursor-comet{position:fixed;inset:0;z-index:90;width:100%;height:100%;pointer-events:none;opacity:0;transition:opacity .22s ease;mix-blend-mode:multiply}
+  .cursor-comet.visible{opacity:1}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky;top:0;z-index:100;
+    background:rgba(246,248,252,.75);backdrop-filter:saturate(180%) blur(16px);
+    border-bottom:1px solid rgba(226,233,244,.9);
+  }
+  .nav-in{max-width:var(--maxw);margin:0 auto;padding:11px 24px;display:flex;align-items:center;gap:16px}
+  .nav-brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:15px;letter-spacing:-.01em;white-space:nowrap;font-family:"Sora",sans-serif}
+  .nav-brand,.nav-brand:hover{color:var(--ink);text-decoration:none}
+  .nav-brand .dot{width:28px;height:28px;border-radius:9px;background:#ECF5FE;flex:0 0 auto;box-shadow:0 4px 12px rgba(47,95,224,.22);display:grid;place-items:center;overflow:hidden;padding:2px}
+  .nav-brand .dot img{width:100%;height:100%;object-fit:contain}
+  .nav-links{margin-left:auto;display:flex;gap:2px;flex-wrap:wrap}
+  .nav-links a{color:var(--muted);font-weight:600;font-size:13.5px;padding:7px 12px;border-radius:9px;transition:.15s}
+  .nav-links a:hover{color:var(--ink);background:var(--brand-soft);text-decoration:none}
+  .nav-toggle{display:none;color:var(--ink)}
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    position:relative;padding:104px 0 76px;text-align:center;overflow:hidden;
+    background:
+      radial-gradient(120% 80% at 18% 0%, rgba(47,95,224,.12), transparent 55%),
+      radial-gradient(120% 85% at 85% 8%, rgba(30,58,138,.10), transparent 55%),
+      linear-gradient(160deg,#eff4fe 0%,#e9f0fc 34%,var(--bg) 66%,#f3f7fd 100%);
+    color:var(--ink);
+  }
+  /* slow drifting aurora layer */
+  .hero-aurora{position:absolute;inset:-20%;z-index:0;pointer-events:none;opacity:.5;
+    background:
+      conic-gradient(from 0deg at 30% 30%, rgba(47,95,224,.16), transparent 32%),
+      conic-gradient(from 150deg at 74% 42%, rgba(30,58,138,.12), transparent 34%);
+    filter:blur(65px);animation:aurora 24s linear infinite}
+  @keyframes aurora{0%{transform:rotate(0deg) scale(1.05)}50%{transform:rotate(180deg) scale(1.14)}100%{transform:rotate(360deg) scale(1.05)}}
+  .hero .blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.18;z-index:0;animation:float 16s ease-in-out infinite}
+  .hero .b1{width:520px;height:520px;background:#2f5fe0;top:-180px;left:-140px}
+  .hero .b2{width:460px;height:460px;background:#1e3a8a;top:-140px;right:-120px;animation-delay:-5s}
+  .hero .b3{width:420px;height:420px;background:#5b8def;bottom:-220px;left:38%;opacity:.12;animation-delay:-9s}
+  @keyframes float{0%,100%{transform:translateY(0) translateX(0)}50%{transform:translateY(34px) translateX(20px)}}
+  .hero::after{
+    content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+    background-image:linear-gradient(rgba(47,95,224,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(47,95,224,.05) 1px,transparent 1px);
+    background-size:44px 44px;mask-image:radial-gradient(75% 65% at 50% 26%,#000,transparent 80%);
+  }
+  .hero-inner{position:relative;z-index:2}
+  /* staged entrance */
+  .hero-inner>*{opacity:0;transform:translateY(18px);animation:rise .8s cubic-bezier(.2,.7,.2,1) forwards}
+  .hero-inner>*:nth-child(1){animation-delay:.05s}
+  .hero-inner>*:nth-child(2){animation-delay:.14s}
+  .hero-inner>*:nth-child(3){animation-delay:.23s}
+  .hero-inner>*:nth-child(4){animation-delay:.32s}
+  .hero-inner>*:nth-child(5){animation-delay:.40s}
+  .hero-inner>*:nth-child(6){animation-delay:.47s}
+  .hero-inner>*:nth-child(7){animation-delay:.54s}
+  .hero-inner>*:nth-child(8){animation-delay:.61s}
+  @keyframes rise{to{opacity:1;transform:none}}
+  h1.title{
+    font-size:clamp(38px,6.6vw,76px);line-height:1.02;font-weight:800;letter-spacing:-.035em;
+    margin:0 auto 20px;max-width:15ch;color:var(--ink);
+  }
+  h1.title .g{
+    background:linear-gradient(100deg,#2f5fe0,#1e3a8a 55%,#2f5fe0 100%);
+    background-size:220% auto;-webkit-background-clip:text;background-clip:text;color:transparent;
+    animation:shine 7s linear infinite;
+  }
+  @keyframes shine{to{background-position:220% center}}
+  .subtitle{font-size:clamp(15px,2vw,20px);color:var(--muted);font-weight:500;max-width:64ch;margin:0 auto 30px}
+  .subtitle b{color:var(--ink);font-weight:700}
+
+  .authors{max-width:80ch;margin:0 auto 8px;font-size:14.5px;color:#333c58;font-weight:500}
+  .authors a{color:#333c58;text-decoration:none;border-bottom:1px solid transparent;transition:.15s}
+  .authors a:hover{color:var(--brand);border-bottom-color:var(--brand)}
+  .authors sup{color:var(--brand);font-weight:700}
+  .affil{max-width:82ch;margin:6px auto 0;font-size:12.5px;color:var(--muted)}
+  .affil sup{color:var(--brand);font-weight:700}
+  .seals{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;margin:20px auto 0}
+  .seals img{width:58px;height:58px;display:block;object-fit:contain;transition:transform .18s ease,filter .18s ease}
+  .seals img:hover{transform:translateY(-2px);filter:drop-shadow(0 6px 8px rgba(30,58,138,.14))}
+  .contrib{font-size:12px;color:var(--muted);margin-top:6px}
+
+  .btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:32px 0 6px}
+  .btn{
+    position:relative;overflow:hidden;
+    display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14.5px;
+    padding:12px 22px;border-radius:13px;border:1px solid var(--line);
+    background:var(--surface);color:var(--ink);transition:.16s;box-shadow:var(--shadow-sm);
+  }
+  .btn:hover{transform:translateY(-2px);text-decoration:none;box-shadow:var(--shadow-md);border-color:#c9d6f2}
+  .btn[aria-disabled="true"]{cursor:not-allowed}
+  .btn.primary{background:var(--grad-soft);border-color:transparent;color:#fff;box-shadow:0 10px 28px rgba(47,95,224,.28)}
+  .btn.primary:hover{box-shadow:0 14px 36px rgba(47,95,224,.38)}
+  .btn.primary::after{content:"";position:absolute;top:0;left:-120%;width:60%;height:100%;
+    background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-18deg);transition:.6s}
+  .btn.primary:hover::after{left:140%}
+  .btn svg{width:17px;height:17px}
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:80px 0;position:relative}
+  .band{background:
+      radial-gradient(60% 100% at 100% 0%, rgba(30,58,138,.05), transparent 60%),
+      radial-gradient(60% 100% at 0% 100%, rgba(47,95,224,.05), transparent 60%),
+      var(--bg-2);
+  }
+  .sec-head{text-align:center;max-width:72ch;margin:0 auto 46px}
+  .sec-kicker{
+    display:inline-flex;align-items:center;gap:9px;font-weight:800;font-size:12.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--brand);margin-bottom:14px
+  }
+  .sec-kicker .badge{
+    width:30px;height:30px;border-radius:9px;background:var(--grad);color:#fff;
+    display:grid;place-items:center;font-size:14px;font-weight:800;box-shadow:0 6px 16px rgba(47,95,224,.30);font-family:"Sora",sans-serif
+  }
+  .sec-title{font-size:clamp(26px,3.6vw,38px);font-weight:800;letter-spacing:-.025em;margin:0 0 12px;line-height:1.12}
+  .sec-sub{color:var(--muted);font-size:16.5px}
+  .sec-sub b{color:var(--ink)}
+
+  .figure{
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px;box-shadow:var(--shadow-md);margin:0 auto;transition:.25s;position:relative;overflow:hidden;
+  }
+  .figure::before{content:"";position:absolute;inset:0;border-radius:var(--radius);padding:1px;
+    background:linear-gradient(120deg,transparent,rgba(30,58,138,.20),transparent);
+    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:.25s}
+  .figure:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+  .figure:hover::before{opacity:1}
+  .figure img{border-radius:12px;margin:0 auto}
+  .figcap{font-size:13.5px;color:var(--muted);margin:16px auto 4px;text-align:center;max-width:82ch}
+  .figcap b{color:var(--ink)}
+
+  .prose{max-width:80ch;margin:0 auto;font-size:17px;color:#2b3350}
+  .prose p{margin:0 0 16px}.prose b{color:var(--ink)}
+  .overview-intro{max-width:80ch;margin:54px auto 20px;text-align:center}
+  .overview-intro h3{font-size:clamp(22px,3vw,30px);line-height:1.2;letter-spacing:-.02em;margin:0 0 22px}
+  .overview-intro .prose{text-align:left}
+
+  /* contribution cards */
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));gap:18px;margin-top:40px}
+  .card{
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:24px;box-shadow:var(--shadow-sm);position:relative;overflow:hidden;transition:.2s;
+  }
+  .card:hover{transform:translateY(-5px);box-shadow:var(--shadow-md);border-color:#d9def0}
+  .card .no{font-family:"Sora",sans-serif;font-size:30px;font-weight:800;letter-spacing:-.02em;
+    background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
+  .card h4{margin:12px 0 8px;font-size:17.5px;font-weight:800;letter-spacing:-.01em}
+  .card p{margin:0;font-size:14px;color:var(--muted)}
+  .card::after{content:"";position:absolute;left:0;top:0;height:100%;width:4px;background:var(--grad);transform:scaleY(.35);transform-origin:top;transition:.25s}
+  .card:hover::after{transform:scaleY(1)}
+
+  /* figure + blurbs template */
+  .split{display:grid;grid-template-columns:1fr;gap:28px;align-items:center}
+  .blurbs{display:grid;gap:14px}
+  .blurb{background:var(--surface);border:1px solid var(--line);border-radius:15px;padding:17px 19px;box-shadow:var(--shadow-sm);transition:.18s}
+  .blurb:hover{transform:translateX(4px);box-shadow:var(--shadow-md)}
+  .blurb h5{margin:0 0 5px;font-size:15.5px;font-weight:800;display:flex;align-items:center;gap:9px}
+  .blurb p{margin:0;font-size:14px;color:var(--muted)}
+  .chip{display:inline-grid;place-items:center;min-width:26px;height:22px;padding:0 7px;font-size:11px;font-weight:800;border-radius:7px;color:#fff}
+  .c-h1{background:var(--brand)} .c-h2{background:var(--brand-2)} .c-h3{background:var(--brand-3)} .c-acc{background:var(--accent)}
+
+  .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+  .method-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .method-grid .chip{background:var(--brand)}
+  .evaluation-grid{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .evaluation-grid .blurb{padding:20px 18px;display:flex;flex-direction:column;min-width:0}
+  .evaluation-grid .blurb:hover{transform:translateY(-4px)}
+  .evaluation-grid .blurb h5{display:grid;grid-template-columns:42px minmax(0,1fr);align-items:start;gap:10px;font-size:15px;line-height:1.35;min-height:44px;margin-bottom:12px}
+  .evaluation-grid .app-title{display:block;padding-top:3px}
+  .evaluation-grid .chip{width:42px;height:32px;padding:0;background:var(--brand);border-radius:9px;font-size:12.5px}
+  .evaluation-grid .blurb p{font-size:13.5px;line-height:1.7;margin:0}
+
+  /* learning stages */
+  .stages{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .stage{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow-sm);position:relative;overflow:hidden;transition:.2s}
+  .stage:hover{transform:translateY(-5px);box-shadow:var(--shadow-md)}
+  .stage .bar{position:absolute;top:0;left:0;right:0;height:5px;background:var(--brand)}
+  .stage:nth-child(2) .bar{background:var(--brand-2)} .stage:nth-child(3) .bar{background:var(--brand-3)}
+  .stage .yr{font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.03em;margin-top:6px}
+  .stage h4{margin:6px 0 9px;font-size:19px;font-weight:800;letter-spacing:-.01em}
+  .stage p{margin:0;font-size:14px;color:var(--muted)}
+  .stage .rn{font-family:"Sora",sans-serif;font-size:44px;font-weight:800;opacity:.1;position:absolute;top:8px;right:18px;line-height:1}
+
+  /* pillars */
+  .pillars{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .pillar{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow-sm)}
+  .pillar .tag{font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+  .pillar.p1 .tag{color:var(--brand)} .pillar.p2 .tag{color:var(--brand-2)}
+  .pillar h3{margin:8px 0 10px;font-size:21px;font-weight:800}
+  .pillar ul{margin:0;padding-left:18px;color:var(--muted);font-size:14.5px}.pillar li{margin:5px 0}
+
+  /* citation */
+  .bibwrap{max-width:920px;margin:0 auto;position:relative}
+  .bibhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+  .copybtn{font-family:inherit;font-weight:700;font-size:13px;cursor:pointer;border:1px solid var(--line);
+    background:var(--surface);color:var(--ink);padding:9px 16px;border-radius:11px;box-shadow:var(--shadow-sm);transition:.14s}
+  .copybtn:hover{transform:translateY(-1px);box-shadow:var(--shadow-md)}
+  .copybtn.done{background:var(--brand-2);color:#fff;border-color:transparent}
+  pre.bib{background:#0c1022;color:#d6def5;border-radius:16px;padding:24px;overflow:auto;
+    font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13px;line-height:1.7;margin:0;border:1px solid #1a2143;box-shadow:var(--shadow-md)}
+  pre.bib .k{color:#8aa2ff} pre.bib .v{color:#9ee6bf}
+
+  footer{padding:52px 0 64px;text-align:center;border-top:1px solid var(--line);color:var(--muted);font-size:13.5px;background:var(--bg-2)}
+  footer .logos{margin-bottom:20px;display:flex;justify-content:center}
+  footer .logos img{max-height:74px;opacity:.95}
+
+  /* scroll reveal */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .6s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media (min-width:860px){
+    .split.rev{grid-template-columns:1.25fr .95fr}
+    .split.fwd{grid-template-columns:.95fr 1.25fr}
+    .split.fwd .figure{order:2}
+  }
+  @media (max-width:860px){
+    .stages{grid-template-columns:1fr}.pillars{grid-template-columns:1fr}
+    .method-grid,.evaluation-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:rgba(255,255,255,.97);border-bottom:1px solid var(--line);flex-direction:column;padding:10px 20px 16px;box-shadow:var(--shadow-md);backdrop-filter:blur(16px)}
+    .nav-links.open{display:flex}
+    .nav-toggle{display:inline-grid;place-items:center;margin-left:auto;background:var(--surface);border:1px solid var(--line);border-radius:10px;width:38px;height:38px;padding:0;cursor:pointer;font-size:18px}
+  }
+  @media (max-width:600px){
+    .wrap{padding:0 18px}
+    .nav-in{padding:10px 18px}
+    .nav-brand{font-size:14px;gap:8px}
+    header.hero{padding:72px 0 56px}
+    h1.title{font-size:clamp(36px,12vw,52px)}
+    .subtitle{margin-bottom:24px}
+    .authors{font-size:13.5px;line-height:1.75}
+    .affil{font-size:12px;line-height:1.8}
+    .btns{margin-top:26px;gap:10px}
+    .btn{width:100%;max-width:310px;justify-content:center}
+    .seals{gap:12px;margin-top:18px}
+    .seals img{width:48px;height:48px}
+    section{padding:62px 0}
+    .sec-head{margin-bottom:34px}
+    .sec-sub{font-size:15px}
+    .figure{padding:10px;border-radius:16px}
+    .figcap{font-size:12.5px;margin-top:12px;padding:0 4px}
+    .prose{font-size:16px}
+    .overview-intro{margin-top:40px;text-align:left}
+    .card,.stage,.pillar{padding:20px}
+    .method-grid,.evaluation-grid{grid-template-columns:1fr}
+    .evaluation-grid .blurb{padding:17px 19px}
+    .evaluation-grid .blurb h5{font-size:15.5px;gap:9px;min-height:0}
+    .evaluation-grid .blurb p{font-size:14px}
+    pre.bib{padding:18px;font-size:12px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+    .reveal{opacity:1;transform:none}
+    .hero .blob,.hero-aurora{animation:none}
+    h1.title .g{animation:none}
+    .hero-inner>*{opacity:1;transform:none;animation:none}
+    .cursor-comet{display:none}
+  }
+  @media (hover:none),(pointer:coarse){.cursor-comet{display:none}}
+
+  /* Survey-specific layout */
+  .card h3{margin:12px 0 8px;font-size:17.5px;font-weight:800;letter-spacing:-.01em}
+  h1.title{max-width:1020px;font-size:clamp(38px,5.6vw,68px);line-height:1.12}
+  h1.title .survey-line{display:block;font-size:.62em;line-height:1.3;margin-top:10px}
+  header.hero{padding:70px 0 48px}
+  .authors{max-width:1000px;line-height:1.95}.author{display:inline-block;white-space:nowrap;margin-right:7px}
+  .affil{max-width:1000px;line-height:1.9}.affil span{display:inline-block;margin-inline:5px}
+  .hero-figure{margin:38px auto 0;max-width:1000px;text-align:left}
+  .star-badge{display:flex;justify-content:center;margin:20px 0 0}.star-badge img{height:20px;width:auto}
+  img{height:auto}.figure::before{pointer-events:none}
+  .figure-button{display:block;width:100%;padding:0;border:0;background:transparent;cursor:zoom-in;position:relative}
+  .figure-button::after{content:'↗';position:absolute;right:5px;bottom:3px;background:#fffE;color:var(--brand);border-radius:5px;padding:0 5px;font-size:20px}
+  .figure-space{margin-top:30px}.overview-copy{margin-bottom:26px}.overview-copy .prose{max-width:85ch}
+  .research-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:30px}
+  .inference-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:28px}
+  .evaluation-grid{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:28px}
+  .blurb h3{font-family:Inter,sans-serif;font-size:16px;margin:0 0 8px;line-height:1.4;display:flex;gap:8px;align-items:center}
+  .stage h3{font-size:20px;margin:9px 0 12px}.stage .yr{color:var(--brand)}
+  .stage ul{padding-left:18px;color:var(--muted);font-size:14px;line-height:1.8}.stage a{font-size:13px;font-weight:700}
+  .resource-box{display:flex;justify-content:space-between;align-items:center;gap:24px;margin-top:30px;background:var(--brand-soft);padding:25px 28px;border:1px solid var(--line);border-radius:var(--radius)}
+  .resource-box h3{font-size:21px;margin:0 0 8px}.resource-box p{margin:0;color:var(--muted);font-size:14px}.resource-box .btn{flex-shrink:0}
+  .bib{white-space:pre-wrap;overflow-wrap:anywhere}.citation-note{text-align:center;color:var(--muted);font-size:13px;margin-top:20px}
+  .nav-links a[aria-current="location"]{color:var(--brand);background:var(--brand-soft)}
+  .lightbox{border:0;padding:0;border-radius:16px;max-width:96vw;max-height:95dvh;width:max-content;box-shadow:var(--shadow-lg)}
+  .lightbox::backdrop{background:#101a32db;backdrop-filter:blur(5px)}
+  .lightbox-bar{position:sticky;top:0;display:flex;justify-content:space-between;align-items:center;gap:18px;background:white;padding:12px 18px;border-bottom:1px solid var(--line);z-index:1;font-size:13px;font-weight:700}
+  .lightbox-close{font:inherit;font-size:20px;cursor:pointer;background:var(--bg);border:0;border-radius:7px;padding:5px 12px;color:var(--ink)}
+  .lightbox img{max-width:90vw;padding:18px}
+  @media(max-width:1050px){.nav-links a{font-size:12px;padding:7px 8px}}
+  @media(max-width:860px){.research-grid{grid-template-columns:1fr}.inference-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.resource-box{display:block}.resource-box .btn{margin-top:18px}.nav-links a{font-size:14px}}
+  @media(max-width:600px){header.hero{padding:48px 0 36px}h1.title{font-size:clamp(34px,9.2vw,48px)}.authors{font-size:13px}.affil{font-size:11px}.affil span{max-width:100%}.hero-figure{margin-top:28px}.inference-grid,.evaluation-grid{grid-template-columns:1fr}.resource-box{padding:22px}.bibhead{gap:14px}.lightbox img{max-width:94vw;padding:10px}.hero-figure .figure{padding:9px}}
+</style>
+<link href="https://lz-zu.github.io/gui-grounding/" rel="canonical"/><meta content="GUI Grounding for Computer-Use Agents: A Survey" property="og:title"/><meta content="A survey of GUI grounding methods, learning paradigms, inference strategies, target representations, datasets, and evaluation." property="og:description"/><meta content="website" property="og:type"/><meta content="https://lz-zu.github.io/gui-grounding/" property="og:url"/><meta content="https://lz-zu.github.io/gui-grounding/assets/overview.png" property="og:image"/><meta content="summary_large_image" name="twitter:card"/><meta content="#2f5fe0" name="theme-color"/></head>
+<body><a class="skip-link" href="#main-content">Skip to content</a><canvas aria-hidden="true" class="cursor-comet"></canvas><nav aria-label="Primary navigation"><div class="nav-in"><a aria-label="GUI Grounding — back to top" class="nav-brand" href="#top"><span class="dot"><img alt="" src="assets/favicon.svg"/></span>GUI Grounding</a><button aria-controls="nl" aria-expanded="false" aria-label="Open navigation menu" class="nav-toggle" onclick="toggleMenu(this)" type="button">☰</button><div class="nav-links" id="nl"><a href="#overview">Overview</a><a href="#taxonomy">Taxonomy</a><a href="#learning">Learning</a><a href="#inference">Inference</a><a href="#representations">Representations</a><a href="#evaluation">Evaluation</a><a href="#cite">Cite</a></div></div></nav><header class="hero" id="top"><div class="hero-aurora"></div><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="wrap hero-inner"><h1 class="title"><span class="g">GUI Grounding</span><br/>for Computer-Use Agents<span class="survey-line">A Survey</span></h1><p class="subtitle">Methods · Datasets · Benchmarks · Evaluation</p><p class="authors"><span class="author">Lizheng Zu<sup>1,*</sup></span> <span class="author">Ke Huang<sup>2,*</sup></span> <span class="author">Gang Xu<sup>3,*</sup></span> <span class="author">Jingfan Fan<sup>4</sup></span> <span class="author">Baoyuan Wu<sup>5</sup></span> <span class="author">Shengfeng He<sup>6</sup></span> <span class="author">Hehe Fan<sup>7</sup></span> <span class="author">Xiangyu Xu<sup>8</sup></span> <span class="author">Chun Li<sup>9</sup></span> <span class="author">Yanshan Li<sup>1</sup></span> <span class="author">Shihui Ying<sup>10</sup></span> <span class="author">Junchi Yan<sup>11</sup></span> <span class="author">Bingyi Jing<sup>5</sup></span> <span class="author">Ming Li<sup>5,†</sup></span> <span class="author">Zheng Zhu<sup>12</sup></span></p><p class="affil"><span><sup>1</sup>Shenzhen University</span><span><sup>2</sup>Sun Yat-sen University</span><span><sup>3</sup>Guangming Laboratory</span><span><sup>4</sup>Beijing Institute of Technology</span><span><sup>5</sup>The Chinese University of Hong Kong, Shenzhen</span><span><sup>6</sup>Singapore Management University</span><span><sup>7</sup>Zhejiang University</span><span><sup>8</sup>Xi’an Jiaotong University</span><span><sup>9</sup>Shenzhen MSU-BIT University</span><span><sup>10</sup>Shanghai University</span><span><sup>11</sup>Shanghai Jiao Tong University</span><span><sup>12</sup>GigaAI</span></p><p class="contrib">* Equal contribution  ·  † Corresponding author</p><div class="btns">
+<a class="btn primary" href="paper.html"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"></path><path d="M15 2v5h5"></path></svg> Read the Paper </a>
+<a class="btn" href="https://github.com/OmniAI-Lab-CUHKSZ/Awesome-GUI-Grounding" rel="noopener" target="_blank"><svg aria-hidden="true" fill="currentColor" viewbox="0 0 24 24"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.94c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.36-3.88-1.36-.53-1.34-1.3-1.7-1.3-1.7-1.06-.72.08-.71.08-.71 1.17.08 1.79 1.2 1.79 1.2 1.04 1.79 2.73 1.27 3.4.97.1-.76.41-1.27.74-1.56-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.7 5.4-5.26 5.69.42.36.79 1.08.79 2.18v3.23c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"></path></svg> GitHub / Reading List </a>
+<a class="btn" href="#cite">
+<svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"></path></svg>
+        BibTeX
+      </a>
+</div><div class="star-badge"><a aria-label="View GitHub stars" href="https://github.com/OmniAI-Lab-CUHKSZ/Awesome-GUI-Grounding/stargazers"><img alt="GitHub stars" height="20" src="https://img.shields.io/github/stars/OmniAI-Lab-CUHKSZ/Awesome-GUI-Grounding?style=social" width="100"/></a></div><div class="hero-figure"><div class="figure"><button aria-label="Enlarge: GUI grounding in action" class="figure-button" data-label="GUI grounding in action" type="button"><img alt="An instruction and GUI screenshot enter a grounding model, which identifies the close button and predicts where to act." decoding="async" fetchpriority="high" height="977" src="assets/overview.png" width="2400"/></button></div></div></div></header><main id="main-content"><section id="overview"><div class="wrap"><div class="sec-head reveal"><div class="sec-kicker"><span class="badge">◎</span>Overview</div><h2 class="sec-title">Connecting intent with interaction</h2><p class="sec-sub">GUI grounding maps an operation intent to a specific interaction target and the spatial parameters needed to act.</p></div><div class="overview-copy reveal"><div class="prose"><p>Graphical user interface agents automate tasks by interpreting user goals and executing interface operations. Grounding is the critical link between <b>high-level reasoning and low-level interaction execution</b>.</p><p>This survey organizes grounding methods along three complementary dimensions, reviews training datasets and evaluation benchmarks, and compares representative methods across target types, instruction complexity, and interaction requirements.</p><p>The roadmap below traces the development from visual grounding and interface modeling to screenshot-based localization, visual search, and iterative refinement.</p></div></div><div class="figure reveal"><button aria-label="Enlarge: Development of GUI grounding" class="figure-button" data-label="Development of GUI grounding" type="button"><img alt="A roadmap from visual grounding foundations and interface modeling to screenshot grounding and grounding refinement." decoding="async" height="1249" loading="lazy" src="assets/history-roadmap.png" width="2401"/></button></div></div></section><section class="band" id="taxonomy"><div class="wrap"><div class="sec-head reveal"><div class="sec-kicker"><span class="badge">1</span>Method taxonomy</div><h2 class="sec-title">Three dimensions of GUI grounding</h2><p class="sec-sub">Learning paradigms, inference strategies, and target representations describe complementary aspects of a method.</p></div><div class="figure reveal"><button aria-label="Enlarge: GUI grounding method taxonomy" class="figure-button" data-label="GUI grounding method taxonomy" type="button"><img alt="GUI grounding methods organized by learning paradigms, inference strategies, and target representations." decoding="async" height="557" loading="lazy" src="assets/method-framework.png" width="2400"/></button></div><div class="cards"><article class="card reveal"><div class="no">01</div><h3><a href="#learning">Learning paradigms</a></h3><p>How are grounding capabilities acquired? Pretraining, fine-tuning, and training-free methods.</p></article><article class="card reveal"><div class="no">02</div><h3><a href="#inference">Inference strategies</a></h3><p>How is evidence organized? Direct, guided, multi-hypothesis, and iterative grounding.</p></article><article class="card reveal"><div class="no">03</div><h3><a href="#representations">Target representations</a></h3><p>How are targets encoded? Coordinates, spatial responses, and interface elements.</p></article></div></div></section><section id="learning"><div class="wrap"><div class="sec-head reveal"><div class="sec-kicker"><span class="badge">2</span>Learning paradigms</div><h2 class="sec-title">How grounding capabilities are acquired</h2><p class="sec-sub">Pretraining develops transferable capabilities; fine-tuning adapts them to GUI grounding; training-free methods improve localization without parameter updates.</p></div><div class="stages"><article class="stage reveal"><div class="bar"></div><div class="rn">01</div><div class="yr">LEARNING PARADIGM 01</div><h3>Pretraining</h3><p>Learn visual, semantic, and spatial representations from broad multimodal data and GUI-specific supervision.</p><ul><li>General multimodal pretraining</li><li>GUI-specific semantic–spatial alignment</li></ul><a href="https://github.com/OmniAI-Lab-CUHKSZ/Awesome-GUI-Grounding#gui-grounding-pretraining">Explore the papers ↗</a></article><article class="stage reveal"><div class="bar"></div><div class="rn">02</div><div class="yr">LEARNING PARADIGM 02</div><h3>Fine-tuning</h3><p>Adapt pretrained models with instruction–target supervision, reward-based optimization, or teacher feedback.</p><ul><li>Supervised fine-tuning</li><li>Reinforcement learning</li><li>On-policy distillation</li></ul><a href="https://github.com/OmniAI-Lab-CUHKSZ/Awesome-GUI-Grounding#supervised-fine-tuning">Explore the papers ↗</a></article><article class="stage reveal"><div class="bar"></div><div class="rn">03</div><div class="yr">LEARNING PARADIGM 03</div><h3>Training-free</h3><p>Use feedback, internal model signals, and additional visual observations to improve an existing grounder.</p><ul><li>Feedback and internal signals</li><li>Visual augmentation</li><li>Adaptive inference</li></ul><a href="https://github.com/OmniAI-Lab-CUHKSZ/Awesome-GUI-Grounding#training-free">Explore the papers ↗</a></article></div></div></section><section class="band" id="inference"><div class="wrap"><div class="sec-head reveal"><div class="sec-kicker"><span class="badge">3</span>Inference strategies</div><h2 class="sec-title">Organizing evidence for localization</h2><p class="sec-sub">Inference strategies differ in whether they predict directly, introduce auxiliary evidence, compare hypotheses, or refine a target using intermediate predictions.</p></div><div class="figure reveal"><button aria-label="Enlarge: Four inference strategies" class="figure-button" data-label="Four inference strategies" type="button"><img alt="Examples of direct, guided, multi-hypothesis, and iterative grounding evidence flows." decoding="async" height="1386" loading="lazy" src="assets/inference-strategies.png" width="2401"/></button></div><div class="inference-grid"><article class="blurb reveal"><h3><span class="chip c-h1">1</span>Direct</h3><p>Predict the target from the current interface and instruction without constructing auxiliary evidence or refining an intermediate target.</p></article><article class="blurb reveal"><h3><span class="chip c-h1">2</span>Guided</h3><p>Use candidate elements, spatial references, or semantic reformulation to support target selection.</p></article><article class="blurb reveal"><h3><span class="chip c-h1">3</span>Multi-hypothesis</h3><p>Aggregate or assess predictions from repeated sampling, different views, or reasoning branches.</p></article><article class="blurb reveal"><h3><span class="chip c-h1">4</span>Iterative</h3><p>Use an intermediate target hypothesis to update the evidence for subsequent localization.</p></article></div></div></section><section id="representations"><div class="wrap"><div class="sec-head reveal"><div class="sec-kicker"><span class="badge">4</span>Target representations</div><h2 class="sec-title">From model output to an actionable location</h2><p class="sec-sub">Target representations specify what the model predicts; spatial readout turns that prediction into the geometry required for execution.</p></div><div class="figure reveal"><button aria-label="Enlarge: Target representations and spatial readout" class="figure-button" data-label="Target representations and spatial readout" type="button"><img alt="Decoding coordinates, deriving a click location from spatial responses, and retrieving the geometry of a selected element." decoding="async" height="1534" loading="lazy" src="assets/target-representations.png" width="2401"/></button></div><div class="research-grid"><article class="blurb reveal"><h3>Coordinates</h3><p>Explicit numerical geometry: click points, bounding boxes, drag endpoints, or trajectories. Predictions must map correctly to the screen’s coordinate frame.</p></article><article class="blurb reveal"><h3>Spatial responses</h3><p>Target-related scores over visual patches, pixels, or regions. A spatial readout derives the final location from these scores.</p></article><article class="blurb reveal"><h3>Elements</h3><p>Select a target from native or visually reconstructed interface elements, then retrieve its associated geometry.</p></article></div></div></section><section class="band" id="evaluation"><div class="wrap"><div class="sec-head reveal"><div class="sec-kicker"><span class="badge">5</span>Datasets &amp; evaluation</div><h2 class="sec-title">Measuring grounding across interfaces</h2><p class="sec-sub">Data resources and benchmarks reveal how grounding transfers across platforms, target types, instruction complexity, and interaction requirements.</p></div><div class="figure reveal"><button aria-label="Enlarge: GUI grounding datasets and benchmarks" class="figure-button" data-label="GUI grounding datasets and benchmarks" type="button"><img alt="An overview of GUI grounding datasets and evaluation benchmarks." decoding="async" height="1574" loading="lazy" src="assets/benchmarks.png" width="2401"/></button></div><div class="grid3 evaluation-grid"><article class="blurb reveal"><h3>Training resources</h3><p>Interface coverage and instruction–target supervision provide the foundation for learning. Data differs in platform, annotation source, and the types of interaction it supports.</p></article><article class="blurb reveal"><h3>Localization accuracy</h3><p>Point-based metrics test whether a prediction falls inside the target. Region-based metrics can measure overlap between predicted and reference geometry.</p></article><article class="blurb reveal"><h3>Benchmark diversity</h3><p>ScreenSpot evaluates grounding across desktop, mobile, and web interfaces; ScreenSpot-Pro tests high-resolution professional environments and small targets.</p></article><article class="blurb reveal"><h3>Beyond static clicks</h3><p>Spatial and functional references, absent targets, dragging, and state-dependent interactions test capabilities beyond matching visible text to a single point.</p></article></div><div class="resource-box reveal"><div><h3>Explore the research collection</h3><p>Papers, datasets, and benchmarks organized by the survey taxonomy.</p></div><a class="btn primary" href="https://github.com/OmniAI-Lab-CUHKSZ/Awesome-GUI-Grounding">Awesome GUI Grounding ↗</a></div></div></section><section id="cite"><div class="wrap"><div class="sec-head reveal"><div class="sec-kicker"><span class="badge">”</span>Citation</div><h2 class="sec-title">Cite this survey</h2><p class="sec-sub">If this survey supports your research, please cite the paper.</p></div><div class="bibwrap reveal"><div class="bibhead"><span>BibTeX · Preprints, 2026</span><button aria-live="polite" class="copybtn" id="cbtn" onclick="copyBib()" type="button">Copy BibTeX</button></div><pre class="bib" id="bib">@article{202611.0431,
   doi = {10.20944/preprints202611.0431.v1},
   url = {https://doi.org/10.20944/preprints202611.0431.v1},
   year = 2026,
@@ -7,4 +356,147 @@
   author = {Lizheng Zu and Ke Huang and Gang Xu and Jingfan Fan and Baoyuan Wu and Shengfeng He and Hehe Fan and Xiangyu Xu and Chun Li and Yanshan Li and Shihui Ying and Junchi Yan and Bingyi Jing and Ming Li and Zheng Zhu},
   title = {GUI Grounding for Computer-Use Agents: A Survey},
   journal = {Preprints}
-}</pre></div><p class="citation-foot"><a href="https://doi.org/10.20944/preprints202611.0431.v1">DOI: 10.20944/preprints202611.0431.v1 ↗</a></p></div></section></main><footer class="site-footer"><div class="wrap footer-row"><a class="brand" href="#top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/><path d="m9 8 9 5-5 1-2 5Z"/></svg>GUI Grounding Survey</a><p><a href="https://github.com/OmniAI-Lab-CUHKSZ/Awesome-GUI-Grounding">Paper collection</a> · <a href="mailto:minglisai@cuhk.edu.cn">Contact</a> · November 2026</p></div></footer><dialog class="lightbox" aria-labelledby="figure-label"><div class="lightbox-bar"><span class="lightbox-label" id="figure-label"></span><button class="lightbox-close" type="button" aria-label="Close figure">×</button></div><img alt=""></dialog></body></html>
+}</pre></div><p class="citation-note"><a href="https://doi.org/10.20944/preprints202611.0431.v1">DOI: 10.20944/preprints202611.0431.v1 ↗</a>  ·  <a download="" href="citation.bib">Download BibTeX</a></p></div></section></main><footer><div class="wrap"><div class="logos"><img alt="GUI Grounding Survey" height="48" src="assets/favicon.svg" width="48"/></div><p>Correspondence: <a href="mailto:minglisai@cuhk.edu.cn">minglisai@cuhk.edu.cn</a></p><p>Reading list: <a href="https://github.com/OmniAI-Lab-CUHKSZ/Awesome-GUI-Grounding">Awesome GUI Grounding</a></p><p>November 2026</p></div></footer><dialog aria-labelledby="figure-label" class="lightbox"><div class="lightbox-bar"><span id="figure-label"></span><button aria-label="Close figure" class="lightbox-close" type="button">×</button></div><img alt=""/></dialog><script>
+  (function(){
+    if(!window.matchMedia('(hover:hover) and (pointer:fine)').matches || window.matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+    var canvas=document.querySelector('.cursor-comet');
+    var context=canvas.getContext('2d');
+    var currentX=0,currentY=0,targetX=0,targetY=0,frame=0,started=false,inside=false,active=false;
+    var trail=[],sparks=[],burstTick=0;
+    function resizeCanvas(){
+      var ratio=Math.min(window.devicePixelRatio||1,2);
+      canvas.width=Math.round(innerWidth*ratio);canvas.height=Math.round(innerHeight*ratio);
+      context.setTransform(ratio,0,0,ratio,0,0);
+    }
+    function requestDraw(){if(!frame)frame=requestAnimationFrame(drawComet)}
+    function glow(x,y,radius,inner,outer){
+      var gradient=context.createRadialGradient(x,y,0,x,y,radius);
+      gradient.addColorStop(0,inner);gradient.addColorStop(.3,outer);gradient.addColorStop(1,'rgba(47,95,224,0)');
+      context.fillStyle=gradient;context.beginPath();context.arc(x,y,radius,0,Math.PI*2);context.fill();
+    }
+    function drawComet(){
+      frame=0;
+      var dx=targetX-currentX,dy=targetY-currentY,speed=Math.hypot(dx,dy),moving=speed>.18;
+      currentX+=dx*.24;currentY+=dy*.24;
+      if(inside&&moving){
+        trail.unshift({x:currentX,y:currentY,life:1,size:2.2+Math.random()*2.4,wobble:(Math.random()-.5)*5});
+        if(trail.length>34)trail.length=34;
+        burstTick++;
+        if(speed>7&&burstTick%3===0){
+          var direction=Math.atan2(dy,dx)+Math.PI;
+          var amount=Math.min(7,3+Math.floor(speed/22));
+          for(var i=0;i<amount;i++){
+            var angle=direction+(Math.random()-.5)*2.2;
+            var force=1.2+Math.random()*Math.min(5.5,1.8+speed*.045);
+            sparks.push({
+              x:currentX-dx*.025+(Math.random()-.5)*6,
+              y:currentY-dy*.025+(Math.random()-.5)*6,
+              vx:Math.cos(angle)*force,
+              vy:Math.sin(angle)*force,
+              life:.72+Math.random()*.28,
+              size:1.1+Math.random()*2.2
+            });
+          }
+          if(sparks.length>90)sparks.splice(0,sparks.length-90);
+        }
+      }
+      trail.forEach(function(point,index){point.life*=moving?.955:.91;point.y+=point.wobble*.018;point.size*=.994});
+      trail=trail.filter(function(point,index){return point.life>.035&&index<34});
+      sparks.forEach(function(spark){
+        spark.x+=spark.vx;spark.y+=spark.vy;spark.vx*=.94;spark.vy*=.94;spark.life*=.89;spark.size*=.985;
+      });
+      sparks=sparks.filter(function(spark){return spark.life>.035});
+      context.clearRect(0,0,innerWidth,innerHeight);
+      context.save();context.globalCompositeOperation='lighter';
+      if(trail.length>1){
+        var last=trail[trail.length-1];
+        var streak=context.createLinearGradient(currentX,currentY,last.x+.01,last.y+.01);
+        streak.addColorStop(0,'rgba(91,141,239,.72)');streak.addColorStop(.45,'rgba(47,95,224,.28)');streak.addColorStop(1,'rgba(30,58,138,0)');
+        context.strokeStyle=streak;context.lineWidth=active?5:3.5;context.lineCap='round';context.lineJoin='round';
+        context.beginPath();context.moveTo(currentX,currentY);
+        trail.forEach(function(point,index){if(index%2===0)context.lineTo(point.x,point.y)});context.stroke();
+      }
+      trail.forEach(function(point,index){
+        context.globalAlpha=point.life*(1-index/trail.length)*.72;
+        glow(point.x,point.y,point.size*3,'rgba(138,181,255,.85)','rgba(47,95,224,.24)');
+      });
+      sparks.forEach(function(spark){
+        context.globalAlpha=spark.life*.9;
+        glow(spark.x,spark.y,spark.size*3.8,'rgba(255,255,255,.96)','rgba(91,141,239,.34)');
+        context.fillStyle='rgba(47,95,224,'+Math.min(.9,spark.life)+')';
+        context.beginPath();context.arc(spark.x,spark.y,Math.max(.55,spark.size*.52),0,Math.PI*2);context.fill();
+      });
+      context.globalAlpha=inside?1:.45;
+      glow(currentX,currentY,active?25:20,'rgba(255,255,255,.98)','rgba(91,141,239,.48)');
+      glow(currentX,currentY,active?10:8,'rgba(255,255,255,1)','rgba(47,95,224,.88)');
+      context.restore();
+      if(moving||trail.length>1||sparks.length)requestDraw();
+    }
+    resizeCanvas();window.addEventListener('resize',function(){resizeCanvas();requestDraw()},{passive:true});
+    document.addEventListener('pointermove',function(event){
+      targetX=event.clientX;targetY=event.clientY;
+      if(!started){currentX=targetX;currentY=targetY;started=true}
+      inside=true;canvas.classList.add('visible');requestDraw();
+    },{passive:true});
+    document.addEventListener('pointerover',function(event){
+      active=!!event.target.closest('a,button,.card,.blurb,.stage,.figure');requestDraw();
+    },{passive:true});
+    document.documentElement.addEventListener('mouseleave',function(){inside=false;canvas.classList.remove('visible');requestDraw()});
+    document.documentElement.addEventListener('mouseenter',function(){inside=true;if(started){canvas.classList.add('visible');requestDraw()}});
+  })();
+  function toggleMenu(button){
+    var menu=document.getElementById('nl');
+    var isOpen=menu.classList.toggle('open');
+    button.setAttribute('aria-expanded',String(isOpen));
+    button.setAttribute('aria-label',isOpen?'Close navigation menu':'Open navigation menu');
+  }
+  function closeMenu(){
+    var menu=document.getElementById('nl');
+    var button=document.querySelector('.nav-toggle');
+    menu.classList.remove('open');
+    button.setAttribute('aria-expanded','false');
+    button.setAttribute('aria-label','Open navigation menu');
+  }
+  function showCopyStatus(success){
+    var button=document.getElementById('cbtn');
+    button.classList.toggle('done',success);
+    button.textContent=success?'Copied ✓':'Copy failed';
+    setTimeout(function(){button.classList.remove('done');button.textContent='Copy BibTeX';},1800);
+  }
+  function copyBib(){
+    var raw=document.getElementById('bib').innerText;
+    if(navigator.clipboard&&window.isSecureContext){
+      navigator.clipboard.writeText(raw).then(function(){showCopyStatus(true)},function(){showCopyStatus(false)});
+      return;
+    }
+    var area=document.createElement('textarea');
+    area.value=raw;area.setAttribute('readonly','');area.style.position='fixed';area.style.opacity='0';
+    document.body.appendChild(area);area.select();
+    try{showCopyStatus(document.execCommand('copy'))}catch(e){showCopyStatus(false)}
+    area.remove();
+  }
+  document.querySelectorAll('#nl a').forEach(function(a){a.addEventListener('click',closeMenu)});
+  document.addEventListener('keydown',function(event){if(event.key==='Escape')closeMenu()});
+  // scroll reveal with stagger
+  var revealItems=document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add('in');io.unobserve(entry.target)}});
+    },{threshold:0,rootMargin:'0px 0px -30px 0px'});
+    revealItems.forEach(function(el,i){el.style.transitionDelay=(Math.min(i%4,3)*70)+'ms';io.observe(el)});
+  }else{
+    revealItems.forEach(function(el){el.classList.add('in')});
+  }
+
+  var lightbox=document.querySelector('.lightbox'), figureTrigger;
+  document.querySelectorAll('.figure-button').forEach(function(button){button.addEventListener('click',function(){
+    figureTrigger=button;var source=button.querySelector('img'),image=lightbox.querySelector('img');
+    image.src=source.src;image.alt=source.alt;document.getElementById('figure-label').textContent=button.dataset.label;
+    lightbox.showModal();document.body.style.overflow='hidden';
+  })});
+  lightbox.querySelector('.lightbox-close').addEventListener('click',function(){lightbox.close()});
+  lightbox.addEventListener('close',function(){document.body.style.overflow='';if(figureTrigger)figureTrigger.focus()});
+  lightbox.addEventListener('click',function(event){if(event.target===lightbox){var b=lightbox.getBoundingClientRect();if(event.clientX<b.left||event.clientX>b.right||event.clientY<b.top||event.clientY>b.bottom)lightbox.close()}});
+  if('IntersectionObserver' in window){var navObserver=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){document.querySelectorAll('#nl a').forEach(function(a){if(a.hash==='#'+entry.target.id)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current')})}})},{rootMargin:'-10% 0px -65% 0px',threshold:0});document.querySelectorAll('main section[id]').forEach(function(s){navObserver.observe(s)})}
+</script></body>
+</html>
